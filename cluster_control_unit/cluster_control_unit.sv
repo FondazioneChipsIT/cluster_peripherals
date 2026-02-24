@@ -86,7 +86,7 @@ import hci_package::*;
     output logic [HWPE_SEL_BITS-1:0]  hwpe_sel_o,
     output hci_interconnect_ctrl_t    hci_ctrl_o,
 
-    output logic                      idma_cg_en_o,
+    output logic                      idma_en_o,
 
     output logic                      fregfile_disable_o,
 
@@ -118,7 +118,7 @@ import hci_package::*;
   logic [HWPE_SEL_BITS-1:0]           hwpe_sel_n;
   logic [10:0]                        hci_ctrl_n, hci_ctrl_q;
 
-  logic                               idma_cg_en_n;
+  logic                               idma_en_n;
 
   logic                               fregfile_disable_n;
 
@@ -222,7 +222,7 @@ import hci_package::*;
             rdata_n[OFFSET_2+OFFSET_1+3]                = hwpe_en_o;
             rdata_n[OFFSET_2+OFFSET_1+4]                = fregfile_disable_o;
             rdata_n[OFFSET_2+OFFSET_1+5+:HWPE_SEL_BITS] = hwpe_sel_o;
-            rdata_n[OFFSET_2+OFFSET_1+6+HWPE_SEL_BITS]  = idma_cg_en_o;
+            rdata_n[OFFSET_2+OFFSET_1+6+HWPE_SEL_BITS]  = idma_en_o;
           end
 
           3'b100: rdata_n[0] = cluster_cg_en_o;
@@ -268,7 +268,7 @@ import hci_package::*;
     hwpe_sel_n  = hwpe_sel_o;
     hci_ctrl_n  = hci_ctrl_q;
 
-    idma_cg_en_n = idma_cg_en_o;
+    idma_en_n = idma_en_o;
 
     fregfile_disable_n = fregfile_disable_o;
 
@@ -310,7 +310,7 @@ import hci_package::*;
             hwpe_en_n = speriph_slave.wdata[OFFSET_2+OFFSET_1+3];
             fregfile_disable_n = speriph_slave.wdata[OFFSET_2+OFFSET_1+4];
             hwpe_sel_n = speriph_slave.wdata[OFFSET_2+OFFSET_1+5+:HWPE_SEL_BITS];
-            idma_cg_en_n = speriph_slave.wdata[OFFSET_2+OFFSET_1+6+HWPE_SEL_BITS];
+            idma_en_n = speriph_slave.wdata[OFFSET_2+OFFSET_1+6+HWPE_SEL_BITS];
           end
           3'b100: begin
             cluster_cg_en_n = speriph_slave.wdata[0];
@@ -356,7 +356,7 @@ import hci_package::*;
       hwpe_en_o         <= 1'b0;
       hwpe_sel_o        <= 1'b0;
 
-      idma_cg_en_o      <= 1'b0;
+      idma_en_o      <= 1'b0;
 
       hci_ctrl_q        <= '0;
 
@@ -390,7 +390,7 @@ import hci_package::*;
       hwpe_sel_o        <= hwpe_sel_n;
       hci_ctrl_q        <= hci_ctrl_n;
 
-      idma_cg_en_o      <= idma_cg_en_n;
+      idma_en_o      <= idma_en_n;
 
       fregfile_disable_o<= fregfile_disable_n;
 
